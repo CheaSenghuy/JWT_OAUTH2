@@ -19,8 +19,8 @@ jwt:
 
 password:
   encryption:
-    key: mysecret
-
+#    key: mysecret
+     key: mytestkeyasdddds
 
 server:
   port: 8080
