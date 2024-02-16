@@ -26,6 +26,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 
 import java.util.List;
@@ -76,7 +77,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable) // (1)
+                .csrf(AbstractHttpConfigurer::disable) // (1)\
+                .cors(httpSecurityCorsConfigurer ->
+                        httpSecurityCorsConfigurer
+                                .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                )
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .anyRequest().authenticated() // (2)

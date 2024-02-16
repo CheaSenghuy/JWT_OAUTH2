@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 
 @Configuration
 public class CorsFilterConfiguration {
-
     @Bean
     public FilterRegistrationBean<Filter> corsFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<Filter>();
@@ -55,4 +54,5 @@ public class CorsFilterConfiguration {
         filterRegistrationBean.setOrder(Integer.MIN_VALUE); // Ensure first execution
         return filterRegistrationBean;
     }
+
 }
