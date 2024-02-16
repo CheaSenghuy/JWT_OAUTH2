@@ -1,6 +1,9 @@
 package com.example.spring_jwt_config.config;
 
 
+import com.example.spring_jwt_config.components.security.AccessDeniedHandler;
+import com.example.spring_jwt_config.components.security.CustomJwtAuthenticationConverter;
+import com.example.spring_jwt_config.components.security.UnauthorizedHandler;
 import com.example.spring_jwt_config.properties.RsaKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -39,6 +42,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final RsaKeyProperties rsaKeys;
+    private final UnauthorizedHandler unauthorizedHandler;
+    private final AccessDeniedHandler accessDeniedHandler;
+    private final CustomJwtAuthenticationConverter customJwtAuthenticationConverter;
 
     @Bean
     public AuthenticationManager userAuthProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
@@ -70,8 +76,8 @@ public class SecurityConfig {
     );
 
     private static final String[] WHITE_LIST_URL = {
-            "/v3/api-docs/**","/api/v1/auth/**",
-            "/swagger-ui/**", "/swagger-ui.html", "/api/v1/password"
+            "/v3/api-docs/**","/api/v1/auth/**", "/api/v1/user/**",
+            "/swagger-ui/**", "/swagger-ui.html", "/api/v1/password",
     };
 
     @Bean
@@ -86,8 +92,24 @@ public class SecurityConfig {
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .anyRequest().authenticated() // (2)
                 )
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .accessDeniedHandler(accessDeniedHandler)
+                                .authenticationEntryPoint(unauthorizedHandler)
+                )
+                .sessionManagement(sessionManagement ->
+                        sessionManagement
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+//                .oauth2ResourceServer(oauth2 -> oauth2
+//                        .authenticationEntryPoint(unauthorizedHandler)
+//                        .accessDeniedHandler(accessDeniedHandler)
+//                        .jwt(jwtConfigurer -> jwtConfigurer
+//                                .jwtAuthenticationConverter(customJwtAuthenticationConverter)
+//                        )
+//                )
+
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // (3)
 //                .httpBasic(Customizer.withDefaults()) // (4)
                 .build();
     }

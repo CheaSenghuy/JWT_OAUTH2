@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.ErrorResponseException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
     public void signup(UserRequest payload) throws Throwable {
         var findUser = userRepository.findUserByUsername(payload.username());
         if(findUser.isPresent()){
-            throw new BusinessException(StatusCode.USER_ID_EXIST,"User alraedy exist");
+            throw new BusinessException(StatusCode.USER_ID_EXIST, "USER EXIST");
         }
         String rawPassword;
         try {

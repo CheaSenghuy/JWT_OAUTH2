@@ -2,6 +2,7 @@ package com.example.spring_jwt_config.domain.user;
 
 
 import com.example.spring_jwt_config.domain.role.Role;
+import com.example.spring_jwt_config.enums.Provider;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
 
     @Builder
     public User(Long id, String username, String password, Role role) {

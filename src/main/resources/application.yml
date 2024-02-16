@@ -1,5 +1,15 @@
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 195943884556-mv35bhkp11mej5ukctc0d2t1fr4fpu1a.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
