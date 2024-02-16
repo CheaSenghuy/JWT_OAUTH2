@@ -32,7 +32,7 @@ if you run on local change it to username & password to ur local username & pass
 #### Get all items
 
 ```http
-  GET /api/v1/password
+  POST /api/v1/password
 ```
 
 | Body | Type     | Description                |
