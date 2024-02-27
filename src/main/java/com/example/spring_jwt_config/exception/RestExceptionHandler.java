@@ -44,7 +44,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public ResponseEntity<ErrorResponse> handleBusinessException(AuthenticationServiceException ex) {
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex) {
         AppLogManager.error(ex);
         ErrorResponse error = new ErrorResponse("BussinessExpection", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);

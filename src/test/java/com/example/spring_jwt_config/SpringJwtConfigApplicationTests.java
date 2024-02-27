@@ -1,5 +1,6 @@
 package com.example.spring_jwt_config;
 
+import com.example.spring_jwt_config.utils.PasswordUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SpringJwtConfigApplicationTests {
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws Exception {
     }
 
 }

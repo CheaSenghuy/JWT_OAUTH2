@@ -3,6 +3,8 @@ package com.example.spring_jwt_config.exception;
 import com.example.spring_jwt_config.common.api.StatusCode;
 import lombok.Getter;
 
+import java.util.function.Supplier;
+
 @Getter
 public class BusinessException extends RuntimeException {
     private final StatusCode errorCode;
